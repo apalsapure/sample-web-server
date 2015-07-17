@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webserver.Handlers", "Webse
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webserver.Infrastructure", "Webserver.Infrastructure\Webserver.Infrastructure.csproj", "{F55F9D02-CB3B-4DCD-A095-0A63BD3FB9B9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webserver.UnitTest", "Webserver.UnitTest\Webserver.UnitTest.csproj", "{55713517-B114-4199-88CD-66AD23C60EE4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{F55F9D02-CB3B-4DCD-A095-0A63BD3FB9B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F55F9D02-CB3B-4DCD-A095-0A63BD3FB9B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F55F9D02-CB3B-4DCD-A095-0A63BD3FB9B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55713517-B114-4199-88CD-66AD23C60EE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55713517-B114-4199-88CD-66AD23C60EE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55713517-B114-4199-88CD-66AD23C60EE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55713517-B114-4199-88CD-66AD23C60EE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
