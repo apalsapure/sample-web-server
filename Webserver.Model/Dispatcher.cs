@@ -77,7 +77,7 @@ namespace Webserver.Model
 
         private void SendEmptyResponse(Request request)
         {
-            var response = new Response(request);
+            var response = new Response(request.Socket);
             response.Status = Constants.STATUS_CODE_204;
             response.ReasonPhrase = "No Content";
             response.Send();
@@ -85,7 +85,7 @@ namespace Webserver.Model
 
         private void SendInternalServerResponse(Request request)
         {
-            var response = new Response(request);
+            var response = new Response(request.Socket);
             response.Status = Constants.STATUS_CODE_500;
             response.ReasonPhrase = "Internal Server Error";
             response.Send();

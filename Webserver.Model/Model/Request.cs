@@ -23,7 +23,7 @@ namespace Webserver.Model
             if (isSecure) _scheme = "https";
         }
 
-        internal Socket Socket { get; private set; }
+        public Socket Socket { get; private set; }
 
         public string UserAgent
         {
