@@ -40,12 +40,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ErrorMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErrorMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Errors.cs" />
+    <Compile Include="ErrorSpace\MaxQueueSizeException.cs" />
     <Compile Include="ErrorSpace\ResourceNotFoundException.cs" />
     <Compile Include="ExceptionPolicy.cs" />
     <Compile Include="FileLogger.cs" />
     <Compile Include="Interface\ILogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ErrorMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -16,7 +16,7 @@ namespace Webserver.Handlers
 
         public Response Process(Request request)
         {
-            var response = new Response(request);
+            var response = new Response(request.Socket);
 
             if (string.IsNullOrWhiteSpace(request.AcceptTypes)) response.ContentType = "text/html";
             else response.ContentType = request.AcceptTypes.Split(',')[0];

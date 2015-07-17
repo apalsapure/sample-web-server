@@ -6,12 +6,14 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using Webserver.Infrastructure;
 
 namespace Webserver.Model
 {
     internal class Listener
     {
         private TcpListener _tcpListener;
+        private static int _maxQueueSize = -1;
 
         public Listener(string host, int port)
         {
@@ -20,19 +22,50 @@ namespace Webserver.Model
 
         public void Listen()
         {
-            this._tcpListener.Start();
-            while (true)
+            try
             {
-                var socket = this._tcpListener.AcceptSocket();
-                if (socket.Connected == false) continue;
+                this.SetMaxQueueSize();
+                this._tcpListener.Start();
+                while (true)
+                {
+                    try
+                    {
+                        var socket = this._tcpListener.AcceptSocket();
+                        if (socket.Connected == false) continue;
 
-                Application.RequestQueue.Enqueue(socket);
+                        if (Application.RequestQueue.Length > _maxQueueSize)
+                            throw Errors.MaxQueueSizeReached(Application.RequestQueue.Length, _maxQueueSize);
+
+                        Application.RequestQueue.Enqueue(socket);
+                    }
+                    catch (ConfigurationErrorsException cEx)
+                    {
+                        ExceptionPolicy.HandleException(cEx);
+                    }
+                    catch (Exception ex)
+                    {
+                        ExceptionPolicy.HandleException(ex);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionPolicy.HandleException(ex);
             }
         }
 
         public void Stop()
         {
             this._tcpListener.Stop();
+        }
+
+        private void SetMaxQueueSize()
+        {
+            if (_maxQueueSize != -1) return;
+
+            if (int.TryParse(ConfigurationManager.AppSettings["max-queue-size"], out _maxQueueSize) == false
+                || _maxQueueSize < 0)
+                throw Errors.MaxQueueSizeNotValid();
         }
     }
 }

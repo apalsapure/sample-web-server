@@ -9,6 +9,7 @@ namespace Webserver.Model
 {
     public interface IQueue
     {
+        int Length { get; }
         bool TryDequeue(out Socket socket);
         void Enqueue(Socket socket);
     }

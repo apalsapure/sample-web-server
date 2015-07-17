@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using Webserver.Infrastructure;
@@ -10,18 +11,17 @@ namespace Webserver.Model
 {
     public class Response
     {
-
-        public Response(Request request)
+        public Response(Socket socket)
         {
-            if (request == null) throw new ArgumentException();
+            if (socket == null) throw new ArgumentException();
 
             this.Body = new byte[] { };
-            this.Request = request;
+            this.Socket = socket;
         }
 
         private string _contentType = "text/html";
 
-        public Request Request { get; private set; }
+        public Socket Socket { get; private set; }
         public int Status { get; set; }
         public string ReasonPhrase { get; set; }
         public string ContentType
@@ -34,7 +34,7 @@ namespace Webserver.Model
             }
         }
 
-        public string HttpVersion { get { return this.Request.Version; } }
+        public string HttpVersion { get; set; }
         public string Date { get { return DateTime.Now.ToString("ddd, dd MMM yyyy HH':'mm':'ss 'GMT'"); } }
         public int ContentLength { get { return this.Body != null ? this.Body.Length : 0; } }
         public byte[] Body { get; set; }
@@ -45,7 +45,7 @@ namespace Webserver.Model
             {
                 byte[] bytes = GetBytes(BuildResponse());
 
-                var socket = this.Request.Socket;
+                var socket = this.Socket;
                 socket.Send(bytes);
                 socket.Close();
                 socket.Dispose();
@@ -85,6 +85,11 @@ namespace Webserver.Model
             if (this.Body != null)
                 stream.Write(this.Body, 0, this.Body.Length);
             return stream.ToArray();
+        }
+
+        public void SendMaxQueueSizeResponse(Socket socket)
+        {
+
         }
     }
 }

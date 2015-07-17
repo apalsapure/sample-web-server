@@ -34,15 +34,15 @@ namespace Webserver.Model
             {
                 ExceptionPolicy.HandleException(reNtFdEx);
 
-                response = new Response(this._request);
+                response = new Response(this._request.Socket);
                 response.Status = Constants.STATUS_CODE_404;
                 response.ReasonPhrase = "Not Found";
-            }
+            } 
             catch (Exception ex)
             {
                 ExceptionPolicy.HandleException(ex);
 
-                response = new Response(this._request);
+                response = new Response(this._request.Socket);
                 response.Status = Constants.STATUS_CODE_500;
                 response.ReasonPhrase = "Internal Server Error";
             }

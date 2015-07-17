@@ -21,5 +21,10 @@ namespace Webserver.Model
         {
             this._queue.Enqueue(socket);
         }
+
+        public int Length
+        {
+            get { return this._queue.Count; }
+        }
     }
 }
